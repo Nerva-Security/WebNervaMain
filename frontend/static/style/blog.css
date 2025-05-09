@@ -1,0 +1,175 @@
+/* ==================== MAIN ====================*/
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content;
+    gap: 20px;
+}
+
+.content div {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 10%;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        translate: 0 100px;
+        scale: 0.8;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
+}
+
+/* ==================== BLOQUE TITULO BLOG ====================*/
+
+.blog-header {
+    grid-column: 1 / -1;
+    font-size: 2rem;
+    padding: 20px;
+    text-align: center;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+        url('/static/img/background-ciberseguridad.jpg') center 10%/cover no-repeat;
+}
+
+/* ==================== BLOQUE AÑADIR ENTRADAS ====================*/
+
+.blog-edit {
+    grid-column: 1 / -1;
+    padding: 0;
+}
+
+.add-entry {
+    width: 100%;
+    border-radius: 10px;
+    font-size: 3em;
+    background-color: #00000016;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #00000026;
+    }
+}
+
+.blog-form {
+    padding: 20px;
+    margin: 0;
+    background-color: #ffffff77;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.blog-form input {
+    width: 50%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.blog-form textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.blog-form button {
+    width: 20%;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    background-color: #007aff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #005bb5;
+    }
+}
+
+/* ==================== BLOQUE CONTENEDOR ====================*/
+
+.blog-card {
+    grid-column: 1 / -1;
+}
+
+.blog-entry {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.entry-img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.entry-content {
+    margin: 0 12px 0 8px;
+}
+
+.entry-content > * {
+    margin-bottom: 10px; 
+}
+
+.entry-fecha {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.entry-txt p{
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.blog-entry button {
+    margin: 10px 10px 0 0;
+    padding: 8px 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.edit-entry {
+    background-color: #ffc107;
+    color: #000;
+
+    &:hover {
+        background-color: #e0a800;
+    }
+}
+
+.delete-entry {
+    background-color: #dc3545;
+    color: #fff;
+
+    &:hover {
+        background-color: #c82333;
+    }
+}
+
+

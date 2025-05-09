@@ -1,0 +1,314 @@
+/* ==================== MAIN ====================*/
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.content section {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        translate: 0 100px;
+        scale: 0.8;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+        scale: 1;
+    }
+}
+
+/* ==================== SECCIÓN INTRODUCCIÓN ====================*/
+
+.intro {
+    grid-column: 1 / -1;
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+        url('/static/img/background-ciberseguridad.jpg') right 30%/cover no-repeat;
+    padding: 200px 80px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+/* ------ Columnas de texto: izquierda y derecha ------ */
+
+.intro-left, .intro-right {
+    flex: 1;
+}
+
+.intro-left {
+    max-width: 600px;
+    transform: translateY(-150px);
+}
+
+.intro-right {
+    max-width: 600px;
+    transform: translateY(130px);
+}
+
+.intro-left h1 {
+    font-size: 3.8em;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.intro-left h2 {
+    font-size: 1.7em;
+    font-weight: 400;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.intro-right p {
+    font-size: 1.3em;
+    color: #333;
+    max-width: 100%;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: right;
+}
+
+/* ------ Iconos RRSS ------ */
+
+.rrss {
+    display: flex;
+    padding: 10px 0px;
+    gap: 20px;
+    align-items: right;
+    justify-content: flex-start;
+}
+
+.rrss a {
+    transition: transform 0.5s ease;
+
+    &:hover {
+        transform:translateY(10px);
+    }
+}
+
+.rrss a .fa-linkedin {
+    color: #0077b5;
+}
+
+.rrss a .fa-github {
+    color: #333;
+}
+
+.rrss a .fa-envelope {
+    color: #d44638;
+}
+
+/* ==================== SECCIÓN COMPETENCIAS ====================*/
+
+.competencias {
+    grid-column: 1 / -1;
+    background:
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+        url('/static/img/background-competencias.png') left 40%/cover no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(2px);
+    padding: 80px 40px;
+}
+
+.competencias-title {
+    font-size: 1.7em;
+    margin-bottom: 20px;
+    color: #555;
+    max-width: 800px;
+    transform: translateY(-30px);
+    padding-left: 20px;
+}
+
+.competencias-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.competencias-card {
+    flex: 1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    background-color: #fff;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.competencias-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.competencias-card i {
+    font-size: 1.9em;
+    color: #0077b5;
+    margin-bottom: 20px;
+}
+
+.competencias-card h3 {
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+
+.diferencia {
+    color: #333;
+    padding-left: 8px;
+    letter-spacing: 8px;
+}
+
+.competencias-card p {
+    font-size: 1.2em;
+    color: #555;
+    max-width: 100%;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+/* ==================== SECCIÓN TRAYECTORIA ====================*/
+
+.trayectoria {
+    grid-column: 1 / -1;
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    text-align: center;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+}
+
+.trayectoria img {
+    height: 120px;
+    width: auto;
+}
+
+.trayectoria p {
+    font-size: 1.4em;
+    color: #333;
+    max-width: 100%;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* ------ Certificaciones ------ */
+
+.certificaciones {
+    flex: 2;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+
+.slider-cert {
+    overflow: hidden;
+    height: 140px;
+    margin-top: 30px;
+    padding: 10px;
+    position: relative;
+}
+
+.slider-cert-track {
+    display: flex;
+    animation: scrollSlider 30s linear infinite;
+    width: fit-content;
+}
+
+.cert-img {
+    height: 100px;
+    flex-shrink: 0;
+    margin-left: 20px;
+    padding: 0 20px;
+    flex-shrink: 0;
+}
+
+
+@keyframes scrollSlider {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* ------ Experiencia ------ */
+
+.experiencia {
+    flex: 1;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+}
+
+.slider-exp {
+    position: relative;
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+.slider-exp-img{
+    display: flex;
+    width: 175px;
+    height: 175px;
+    overflow-x: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.exp-img {
+    flex: 1 0 100%;
+    scroll-snap-align: center;
+    object-fit: cover;
+    overflow: visible;
+    padding-top: 30px;
+}
+
+.slider-exp-nav {
+    display: flex;
+    column-gap: 10px;
+    position: absolute;
+    bottom: 15px;
+    left: 35%;
+    translate: translateX(-50%);
+    z-index: 1;
+}
+
+.slider-exp-button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    opacity: 0.7;
+    border: 1px solid #9b9b9b;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.slider-button:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/blog.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header id="header"></header>
+
+    <main class="content">
+        
+        <div class="blog-header">
+            <h1>Blog</h1>
+        </div>
+        
+        <div class="blog-edit">
+            <div class="blog-buttons">
+                <button class="add-entry" id="add-entry">+</button>
+            </div>
+            
+            <div class="blog-form">
+                <form id="blog-form">
+                    <label for="titulo">Título</label><br>
+                    <input type="text" id="titulo" required><br>
+
+                    <label for="contenido">Contenido</label><br>
+                    <textarea id="contenido" required></textarea>
+                    
+                    <label for="imagen">Imagen</label><br>
+                    <input type="file" id="imagen" accept="image/*">
+                    
+                    <button type="submit">Publicar</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="blog-card" class="blog-card"></div>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="/static/script/script.js"></script>
+    <script src="/static/script/blog.js"></script>
+</body>
+
+</html>
