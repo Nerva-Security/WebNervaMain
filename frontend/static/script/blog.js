@@ -38,6 +38,10 @@ addEntryButton.addEventListener('click', function () {
   editingId = null;
   existingImage = null;
   blogForm.reset();
+
+  // Limpiar la vista previa de la imagen
+  const imgPreview = document.getElementById('img-preview');
+  imgPreview.innerHTML = ''; 
 });
 
 // Función para cargar las entradas del blog desde el servidor
@@ -49,6 +53,7 @@ function cargarEntradas() {
       entries.forEach(entry => {
         const entryElement = document.createElement('div');
         entryElement.classList.add('blog-entry');
+        entryElement.setAttribute("id", `entrada-${entry.id}`);
 
         // Dividir el contenido en párrafos
         const parrafos = entry.contenido.split('\n').filter(p => p.trim() !== '');
@@ -71,6 +76,16 @@ function cargarEntradas() {
           `;
         blogCard.insertBefore(entryElement, blogCard.firstChild);
       });
+
+      // Scroll automático si hay un hash en la URL
+      const hash = window.location.hash;
+      if (hash) {
+        const entryElement = document.querySelector(hash);
+        if (entryElement) {
+          entryElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      }
+
     })
     .catch(error => {
       console.error('Error al cargar las entradas:', error);
@@ -232,6 +247,11 @@ blogCard.addEventListener('click', function (event) {
         isEditing = true;
         editingId = entry.id;
         existingImage = entry.imagen;
+
+        // Mostrar la imagen existente
+        const imgPreview = document.getElementById('img-preview');
+        imgPreview.innerHTML = `
+        <img src="${entry.imagen}" alt="Imagen de la entrada" class="img-preview">`;	
       })
       .catch(error => {
         console.error('Error al cargar la entrada para editar:', error);

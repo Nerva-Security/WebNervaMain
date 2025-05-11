@@ -37,7 +37,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background:
         linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
-        url('/static/img/background-ciberseguridad.jpg') center 10%/cover no-repeat;
+        url('/static/img/background-ciberseguridad.jpg') center 90%/cover no-repeat;
 }
 
 /* ==================== BLOQUE AÑADIR ENTRADAS ====================*/
@@ -101,6 +101,13 @@ main {
     &:hover {
         background-color: #005bb5;
     }
+}
+
+.img-preview {
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
+    margin: 10px 0;
 }
 
 /* ==================== BLOQUE CONTENEDOR ====================*/

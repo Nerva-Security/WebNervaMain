@@ -9,7 +9,11 @@ fetch('/blog/entradas')
             const imgElement = document.createElement('img');
             imgElement.src = entry.imagen;
             imgElement.alt = entry.titulo;
-            imgElement.dataset.entryId = entry.id; 
+            imgElement.dataset.entryId = entry.id;
+
+            imgElement.addEventListener('click', () => {
+                window.location.href = `/blog.html#entrada-${entry.id}`;
+            });
 
             galeriaContainer.insertBefore(imgElement, galeriaContainer.firstChild);
         });
