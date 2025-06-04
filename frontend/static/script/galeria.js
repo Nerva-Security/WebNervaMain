@@ -1,5 +1,5 @@
 // Cargar las imágenes en la galería del blog 
-fetch('/blog/entradas')
+fetch('/blog/entradas?page=1&limit=1000')
     .then(response => response.json())
     .then(entries => {
         const galeriaContainer = document.getElementById('galeria');
@@ -15,7 +15,7 @@ fetch('/blog/entradas')
                 window.location.href = `/blog.html#entrada-${entry.id}`;
             });
 
-            galeriaContainer.insertBefore(imgElement, galeriaContainer.firstChild);
+            galeriaContainer.appendChild(imgElement);
         });
     })
     .catch(error => console.error('Error al cargar la galería:', error));

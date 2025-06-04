@@ -14,16 +14,35 @@
     <header id="header"></header>
 
     <main class="content">
-        
+
+        <!--Blog Header-->
         <div class="blog-header">
             <h1>Blog</h1>
         </div>
-        
+
+        <!--Filtrar número de entradas o palabras-->
+        <div class="blog-filter">
+            <div class="blog-entry-pages">
+                <label for="entry-pages">Mostrar por página:</label>
+                <select id="entry-pages">
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                    <option value="0">Todas</option>
+                </select>
+            </div>
+            <div class="blog-search">
+                <input type="text" id="search-input" placeholder="Buscar entradas...">
+                <button id="search-entry"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </div>
+
+        <!--Formulario añadir/editar entradas-->
         <div class="blog-edit">
             <div class="blog-buttons">
                 <button class="add-entry" id="add-entry">+</button>
             </div>
-            
+
             <div class="blog-form">
                 <form id="blog-form">
                     <label for="titulo">Título</label><br>
@@ -31,17 +50,23 @@
 
                     <label for="contenido">Contenido</label><br>
                     <textarea id="contenido" required></textarea>
-                    
+
                     <label for="imagen">Imagen</label><br>
                     <div id="img-preview"></div>
                     <input type="file" id="imagen" accept="image/*">
-                    
+
                     <button type="submit">Publicar</button>
                 </form>
             </div>
         </div>
 
+        <!--Entradas del blog-->
         <div id="blog-card" class="blog-card"></div>
+
+        <!--Botón "Cargar más"-->
+        <div class="blog-load-more">
+            <button class="load-more" id="load-more">Cargar más</i></button>
+        </div>
     </main>
 
     <div id="footer"></div>

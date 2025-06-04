@@ -19,6 +19,13 @@ let isEditing = false;
 let editingId = null;
 let existingImage = null;
 
+// Variables para manejar la paginación
+const entryPagesSelect = document.getElementById('entry-pages');
+const loadMoreButton = document.getElementById('load-more');
+let currentPage = 1;
+let entriesPerPage = 10;
+let moreEntriesAvailable = true;
+
 // Función para reiniciar el formulario
 function resetForm() {
   blogForm.reset();
@@ -41,15 +48,22 @@ addEntryButton.addEventListener('click', function () {
 
   // Limpiar la vista previa de la imagen
   const imgPreview = document.getElementById('img-preview');
-  imgPreview.innerHTML = ''; 
+  imgPreview.innerHTML = '';
+});
+
+// Seleccionar el número de entradas por página
+entryPagesSelect.addEventListener('change', function () {
+  entriesPerPage = parseInt(this.value);
+  currentPage = 1;
+  cargarEntradas(currentPage, entriesPerPage);
 });
 
 // Función para cargar las entradas del blog desde el servidor
-function cargarEntradas() {
-  fetch('/blog/entradas')
+function cargarEntradas(page = 1, limit = 10) {
+  fetch(`/blog/entradas?page=${page}&limit=${limit}`)
     .then(response => response.json())
     .then(entries => {
-      blogCard.innerHTML = '';
+      if (page === 1) blogCard.innerHTML = '';
       entries.forEach(entry => {
         const entryElement = document.createElement('div');
         entryElement.classList.add('blog-entry');
@@ -74,18 +88,16 @@ function cargarEntradas() {
             <button class="read-more"><i class="fa-solid fa-eye"></i></button>
           </div>
           `;
-        blogCard.insertBefore(entryElement, blogCard.firstChild);
+        blogCard.appendChild(entryElement);
       });
 
-      // Scroll automático si hay un hash en la URL
-      const hash = window.location.hash;
-      if (hash) {
-        const entryElement = document.querySelector(hash);
-        if (entryElement) {
-          entryElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        }
+      // Manejar si hay más entradas disponibles
+      moreEntriesAvailable = entries.length === limit;
+      if (moreEntriesAvailable) {
+        loadMoreButton.style.display = 'block';
+      } else {
+        loadMoreButton.style.display = 'none';
       }
-
     })
     .catch(error => {
       console.error('Error al cargar las entradas:', error);
@@ -94,7 +106,21 @@ function cargarEntradas() {
 }
 
 // Cargar entradas al cargar la página
-document.addEventListener('DOMContentLoaded', cargarEntradas);
+document.addEventListener('DOMContentLoaded', function () {
+  // Scroll automático si hay un hash en la URL, sino, carga normal
+      const hash = window.location.hash;
+      if (hash) {
+        cargarEntradas(1, 1000);
+        setTimeout(() => {
+          const entryElement = document.querySelector(hash);
+          if (entryElement) {
+            entryElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+        }, 500); 
+      } else {
+        cargarEntradas(currentPage, entriesPerPage);
+      }
+});
 
 // Crear o editar una entrada en el blog
 blogForm.addEventListener('submit', function (event) {
@@ -109,16 +135,16 @@ blogForm.addEventListener('submit', function (event) {
 
     subirImagen(formData)
       .then(url => {
-        if (!url) return; 
+        if (!url) return;
 
-        imageUrl = url; 
+        imageUrl = url;
 
         // Crear o actualizar la entrada con la imagen obtenida
         const entry = {
           titulo: tituloInput.value,
           contenido: contenidoInput.value,
           fecha: fecha,
-          imagen: imageUrl, 
+          imagen: imageUrl,
         };
 
         if (isEditing) {
@@ -134,7 +160,7 @@ blogForm.addEventListener('submit', function (event) {
             .then(() => {
               alert('Entrada actualizada con éxito');
               resetForm();
-              cargarEntradas();
+              cargarEntradas(currentPage, entriesPerPage);
               cargarGaleria();
             })
             .catch(() => {
@@ -153,7 +179,7 @@ blogForm.addEventListener('submit', function (event) {
             .then(() => {
               alert('Entrada guardada con éxito');
               resetForm();
-              cargarEntradas();
+              cargarEntradas(currentPage, entriesPerPage);
               cargarGaleria();
             })
             .catch(() => {
@@ -186,7 +212,7 @@ blogForm.addEventListener('submit', function (event) {
         .then(() => {
           alert('Entrada actualizada con éxito');
           resetForm();
-          cargarEntradas();
+          cargarEntradas(currentPage, entriesPerPage);
         })
         .catch(() => {
           alert('Hubo un problema al actualizar la entrada');
@@ -204,7 +230,7 @@ blogForm.addEventListener('submit', function (event) {
         .then(() => {
           alert('Entrada guardada con éxito');
           resetForm();
-          cargarEntradas();
+          cargarEntradas(currentPage, entriesPerPage);
         })
         .catch(() => {
           alert('Hubo un problema al crear la entrada');
@@ -223,7 +249,7 @@ blogCard.addEventListener('click', function (event) {
       .then(response => response.text())
       .then(message => {
         alert(message);
-        cargarEntradas();
+        cargarEntradas(currentPage, entriesPerPage);
       })
       .catch(error => {
         console.error('Error al eliminar la entrada:', error);
@@ -251,7 +277,7 @@ blogCard.addEventListener('click', function (event) {
         // Mostrar la imagen existente
         const imgPreview = document.getElementById('img-preview');
         imgPreview.innerHTML = `
-        <img src="${entry.imagen}" alt="Imagen de la entrada" class="img-preview">`;	
+        <img src="${entry.imagen}" alt="Imagen de la entrada" class="img-preview">`;
       })
       .catch(error => {
         console.error('Error al cargar la entrada para editar:', error);
@@ -294,3 +320,9 @@ function subirImagen(formData) {
       return null;
     });
 }
+
+// Cargar más entradas al hacer clic en "Cargar más"
+loadMoreButton.addEventListener('click', function () {
+  currentPage++;
+  cargarEntradas(currentPage, entriesPerPage);
+});

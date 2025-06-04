@@ -28,9 +28,6 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-// Servir archivos estáticos (css, js, imágenes)
-app.use(express.static(path.join(__dirname, '..', '..', 'frontend')));
-
 // Para manejar las solicitudes JSON
 app.use(express.json());
 
@@ -61,17 +58,29 @@ app.get('/galeria', (req, res) => {
 
 // Ruta para leer el archivo JSON
 app.get('/blog/entradas', (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Página solicitada
+  const limit = parseInt(req.query.limit) || 10; // Número de entradas por página
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).send('Error al leer el archivo JSON');
     }
 
-    if (data.trim() === '') {
-      res.json([]);
-    } else {
-      res.json(JSON.parse(data));
+    let entries = [];
+    if (data.trim() !== '') {
+      try {
+        entries = JSON.parse(data);
+      } catch (parseErr) {
+        console.error('Error al parsear el JSON', parseErr);
+        return res.status(500).send('Error al parsear el archivo JSON');
+      }
     }
+
+    // Paginación
+    const start = (page - 1) * limit;
+    const paginatedEntries = entries.slice(start, start + limit);
+    res.json(paginatedEntries);
+
   });
 });
 
@@ -102,7 +111,7 @@ app.post('/blog/entradas', (req, res) => {
     }
 
     // Agregar la nueva entrada
-    entries.push(newEntry);
+    entries.unshift(newEntry);
 
     // Escribir el archivo con formato JSON
     fs.writeFile(path.join(__dirname, 'blog.json'), JSON.stringify(entries, null, 2), (err) => {
@@ -202,6 +211,8 @@ app.post('/upload', upload.single('image'), (req, res) => {
   res.json({ imageUrl: req.file.path });
 });
 
+// Servir archivos estáticos (css, js, imágenes)
+app.use(express.static(path.join(__dirname, '..', '..', 'frontend')));
 
 // Hacer que el servidor escuche en el puerto 5000
 app.listen(PORT, () => {
