@@ -106,7 +106,7 @@ main {
 
 .blog-edit {
     grid-column: 1 / -1;
-    padding: 0;
+    padding: 0px;
 }
 
 .add-entry {
@@ -125,7 +125,7 @@ main {
 
 .blog-form {
     padding: 20px;
-    margin: 0;
+    margin: 20px 0;
     background-color: #ffffff77;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

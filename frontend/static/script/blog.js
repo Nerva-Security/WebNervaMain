@@ -241,8 +241,9 @@ blogForm.addEventListener('submit', function (event) {
 
 // Eliminar una entrada del blog
 blogCard.addEventListener('click', function (event) {
-  if (event.target.classList.contains('delete-entry')) {
-    const entryId = event.target.dataset.id;
+  const deleteButton = event.target.closest('.delete-entry');
+  if (deleteButton) {
+    const entryId = deleteButton.dataset.id;
     fetch(`/blog/entradas/${entryId}`, {
       method: 'DELETE',
     })
@@ -259,8 +260,9 @@ blogCard.addEventListener('click', function (event) {
 
 // Editar una entrada del blog
 blogCard.addEventListener('click', function (event) {
-  if (event.target.classList.contains('edit-entry')) {
-    const entryId = event.target.dataset.id;
+  const editButton = event.target.closest('.edit-entry');
+  if (editButton) {
+    const entryId = editButton.dataset.id;
     fetch(`/blog/entradas/${entryId}`)
       .then(response => response.json())
       .then(entry => {
