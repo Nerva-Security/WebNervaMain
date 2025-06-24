@@ -103,7 +103,7 @@ main {
     box-shadow: 0 0 18px #ff4b2b99;
 }
 
-/* Estrella recomendado */
+/* Estrella*/
 .serv-pack:nth-child(3) {
     position: relative;
 }
@@ -128,14 +128,11 @@ main {
     content: "★";
     position: absolute;
     top: 2px;
-    /* ajusta vertical */
     right: 8px;
-    /* ajusta horizontal para mover a la derecha o izquierda */
     color: white;
     font-size: 1.5rem;
     font-weight: bold;
     z-index: 11;
-    /* arriba del triángulo */
     pointer-events: none;
 }
 
@@ -266,6 +263,5 @@ main {
     text-align: center;
     color: #999;
     font-size: 1.2rem;
-    font-style: italic;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
