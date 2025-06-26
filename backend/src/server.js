@@ -1,16 +1,19 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const app = express();
-const PORT = 5000;
-
-//Configuración Cloudinary - Multer - dotenv
+const fsp = require('fs').promises;
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const dotenv = require('dotenv');
+const { google } = require('googleapis');
+
 dotenv.config();
 
+const app = express();
+const PORT = 5000;
+
+// Configuración de Cloudinary + multer
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -20,13 +23,71 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'blog_nervasec', 
+    folder: 'blog_nervasec',
     allowed_formats: ['jpg', 'png', 'jpeg'],
     transformation: [{ width: 800, height: 600, crop: 'limit' }],
   },
 });
 
 const upload = multer({ storage: storage });
+
+//Configuración de Google Calendar API
+const SCOPES = [
+  'https://www.googleapis.com/auth/calendar',
+  'https://www.googleapis.com/auth/calendar.events',
+];
+const TOKEN_PATH = path.join(process.cwd(), 'token.json');
+const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
+
+let oAuth2Client;
+fs.readFile(CREDENTIALS_PATH, (err, content) => {
+  if (err) {
+    console.error('Error al cargar credentials.json:', err);
+    return;
+  }
+  const credentials = JSON.parse(content);
+  const { client_secret, client_id, redirect_uris } = credentials.web;
+  oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+});
+
+async function authorize() {
+  const content = await fsp.readFile(CREDENTIALS_PATH);
+  const credentials = JSON.parse(content);
+  const { client_secret, client_id, redirect_uris } = credentials.web;
+  const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+
+  try {
+    const token = await fsp.readFile(TOKEN_PATH, 'utf8');
+    oAuth2Client.setCredentials(JSON.parse(token));
+    return oAuth2Client;
+  } catch (err) {
+    return null;
+  }
+}
+
+async function listEvents(auth) {
+  const calendar = google.calendar({ version: 'v3', auth });
+  const res = await calendar.events.list({
+    calendarId: 'primary',
+    timeMin: new Date().toISOString(),
+    maxResults: 10,
+    singleEvents: true,
+    orderBy: 'startTime',
+  });
+
+  const items = res.data.items || [];
+
+  // Transformar al formato que espera FullCalendar
+  const events = items.map(event => ({
+    id: event.id,
+    title: event.summary,
+    start: event.start.dateTime,
+    end: event.end.dateTime,
+  }));
+
+  return events;
+}
+
 
 // Para manejar las solicitudes JSON
 app.use(express.json());
@@ -89,7 +150,7 @@ app.post('/blog/entradas', (req, res) => {
   const newEntry = req.body;
 
   // Generar un ID único y aleatorio
-  newEntry.id = Math.floor(Math.random() * 1000000000); 
+  newEntry.id = Math.floor(Math.random() * 1000000000);
 
 
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
@@ -166,8 +227,8 @@ app.get('/blog/entradas/:id', (req, res) => {
 
 // Ruta para editar una entrada del blog
 app.put('/blog/entradas/:id', (req, res) => {
-  const entryId = req.params.id; 
-  const updatedEntry = req.body; 
+  const entryId = req.params.id;
+  const updatedEntry = req.body;
 
   // Leer el archivo de entradas
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
@@ -178,12 +239,12 @@ app.put('/blog/entradas/:id', (req, res) => {
 
     try {
       let entries = JSON.parse(data);
-      
+
       // Encontrar la entrada a actualizar
       const entryIndex = entries.findIndex(entry => entry.id === parseInt(entryId));
 
       if (entryIndex !== -1) {
-        entries[entryIndex] = {...updatedEntry}; 
+        entries[entryIndex] = { ...updatedEntry };
 
         // Escribir de nuevo en el archivo JSON
         fs.writeFile(path.join(__dirname, 'blog.json'), JSON.stringify(entries, null, 2), (err) => {
@@ -210,6 +271,99 @@ app.post('/upload', upload.single('image'), (req, res) => {
   }
   res.json({ imageUrl: req.file.path });
 });
+
+// Ruta para manejar la autenticación de Google Calendar
+app.get('/auth', (req, res) => {
+  const authUrl = oAuth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: SCOPES,
+    prompt: 'consent', 
+  });
+  res.redirect(authUrl);
+});
+
+
+app.get('/auth/callback', async (req, res) => {
+  const code = req.query.code;
+  try {
+    const { tokens } = await oAuth2Client.getToken(code);
+    oAuth2Client.setCredentials(tokens);
+    await fsp.writeFile(TOKEN_PATH, JSON.stringify(tokens));
+    res.redirect('/servicios');
+  } catch (err) {
+    console.error('Error intercambiando el código:', err);
+    res.status(500).send('Error en la autenticación');
+  }
+});
+
+// Ruta para cargar los eventos de Google Calendar
+app.get('/calendar/events', async (req, res) => {
+  try {
+    const auth = await authorize();
+    if (!auth) return res.status(401).send('No autenticado con Google');
+    const events = await listEvents(auth);
+    res.json(events);
+  } catch (error) {
+    console.error('Error obteniendo eventos:', error);
+    res.status(500).send('Error al obtener eventos');
+  }
+});
+
+//Ruta para crear un nuevo evento en Google Calendar
+app.post('/calendar/create-event', async (req, res) => {
+  try {
+    const auth = await authorize();
+    if (!auth) return res.status(401).send('No autenticado con Google');
+
+    const calendar = google.calendar({ version: 'v3', auth });
+    const { title, date, startTime, endTime } = req.body;
+
+    if (!title || !date || !startTime || !endTime) {
+      return res.status(400).json({ message: 'Faltan datos: title, date, startTime o endTime' });
+    }
+
+    const event = {
+      summary: title,
+      start: {
+        dateTime: `${date}T${startTime}`,
+        timeZone: 'Europe/Madrid',
+      },
+      end: {
+        dateTime: `${date}T${endTime}`,
+        timeZone: 'Europe/Madrid',
+      },
+    };
+
+    await calendar.events.insert({
+      calendarId: 'primary',
+      resource: event,
+    });
+
+    res.status(200).json({ message: 'Evento creado correctamente' });
+  } catch (error) {
+    console.error('Error creando evento:', error);
+    res.status(500).json({ message: 'Error al crear evento' });
+  }
+});
+
+// Ruta para eliminar un evento de Google Calendar
+app.delete('/calendar/delete-event/:id', async (req, res) => {
+  try {
+    const auth = await authorize();
+    const calendar = google.calendar({ version: 'v3', auth });
+
+    await calendar.events.delete({
+      calendarId: 'primary',
+      eventId: req.params.id
+    });
+
+    res.status(200).json({ message: 'Evento eliminado correctamente' });
+  } catch (error) {
+    console.error('Error eliminando evento:', error);
+    res.status(500).json({ message: 'Error al eliminar evento' });
+  }
+});
+
 
 // Servir archivos estáticos (css, js, imágenes)
 app.use(express.static(path.join(__dirname, '..', '..', 'frontend')));
