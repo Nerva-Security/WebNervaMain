@@ -7,6 +7,7 @@
     <title>Servicios</title>
     <link rel="stylesheet" href="/static/style/style.css">
     <link rel="stylesheet" href="/static/style/servicios.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css' rel='stylesheet' />
     <script src="https://cdn.auth0.com/js/auth0-spa-js/1.19/auth0-spa-js.production.js"></script>
 </head>
@@ -104,6 +105,81 @@
                 <button class="select-serv">Seleccionar</button>
             </div>
         </div>
+
+        <div class="serv-text">
+            <h1>Reserva tu sesión</h1><br>
+            <h2><i class="fa-solid fa-arrow-down"></i></h2>
+        </div>
+
+        <div id="serv-event-form" class="serv-event-form">
+            <form id="event-form">
+                <label for="event-description">Descripción de la reserva:</label>
+                <input type="text" id="event-description" name="description" placeholder="Escribe aquí..." required>
+
+                <label for="event-title">Paquete:</label>
+                <select name="title" id="event-title" required>
+                    <option value="">Selecciona un paquete</option>
+                    <option value="Conciencia básica">Conciencia básica en ciberseguridad</option>
+                    <option value="Ciberseguridad esencial">Ciberseguridad esencial</option>
+                    <option value="Ciberseguridad avanzada">Ciberseguridad avanzada</option>
+                </select>
+
+                <label for="event-date">Fecha:</label>
+                <input type="date" id="event-date" name="date" required>
+
+                <div class="time-container">
+                    <div class="time-block">
+                        <label for="start-hour">Hora inicio:</label>
+                        <div class="time-select">
+                            <select name="startHour" id="start-hour" required>
+                                <option value="">--</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                            </select>
+                            <span>:</span>
+                            <select name="startMinute" id="start-minute" required>
+                                <option value="">--</option>
+                                <option value="00">00</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="time-block">
+                        <label for="end-hour">Hora fin:</label>
+                        <div class="time-select">
+                            <select name="endHour" id="end-hour" required>
+                                <option value="">--</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                            </select>
+                            <span>:</span>
+                            <select name="endMinute" id="end-minute" required>
+                                <option value="">--</option>
+                                <option value="00">00</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit">Crear evento</button>
+            </form>
+        </div>
+
         <div class="serv-calendar" id="calendar"></div>
     </main>
 

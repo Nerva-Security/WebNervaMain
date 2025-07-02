@@ -39,7 +39,7 @@ main {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    margin: 0 80px;
+    margin: 10px 80px 30px 80px;
     gap: 40px;
 }
 
@@ -251,16 +251,122 @@ main {
     background-color: #cc005f;
 }
 
+/* ==================== TITULOS Y TEXTO ====================*/
+.serv-text {
+    text-align: center;
+    padding: 20px;
+    margin: 0 40px;
+}
+
+.serv-text h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #555;
+}
+
+.serv-text h2 {
+    font-size: 2rem;
+    color: #555;
+    font-weight: 500;
+}
 
 /* ==================== GOOGLE CALENDAR ====================*/
 .serv-calendar {
     grid-column: 1 / -1;
-    margin: 40px 80px;
-    padding: 80px;
+    margin: 40px;
+    padding: 40px;
     border-radius: 15px;
     background-color: #f9f9f9;
     text-align: center;
     color: #999;
     font-size: 1.2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.fc .fc-button {
+  background-color: #4a90e2; 
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+}
+
+.fc .fc-button:hover {
+  background-color: #357ab7;
+}
+
+.fc-event {
+  background-color: #357ab7b1;
+  border: none;
+  color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.fc-event:hover {
+    background-color: #2c5f8a;
+}
+
+/* ==================== FORMULARIO AÑADIR EVENTO ====================*/
+.serv-event-form {
+    grid-column: 1 / -1;
+    background-color: #f7f9fb;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 0 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.time-container {
+    display: flex;
+    gap: 40px; 
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+}
+
+.time-block > label {
+    margin-bottom: 10px;
+    display: inline-block; 
+}
+
+.time-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px; 
+    margin-bottom: 5px;
+}
+
+.time-select select {
+    width: 70px; 
+}
+
+#event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#event-form input, select, button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+}
+
+#event-form button {
+    background-color: #0b63ce;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#event-form button:hover {
+    background-color: #084a9e;
 }

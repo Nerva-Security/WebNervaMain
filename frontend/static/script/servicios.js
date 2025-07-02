@@ -1,5 +1,7 @@
 // Variables generales
 const infoButtons = document.querySelectorAll(".info-serv");
+let calendar;
+const form = document.getElementById('event-form');
 
 // Función para mostrar/ocultar detalles de los servicios con transición suave
 document.addEventListener("DOMContentLoaded", () => {
@@ -79,20 +81,21 @@ fetch('/calendar/events')
         console.error('Error cargando eventos:', err);
     });
 
+// Configuración de FullCalendar
 document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
-    const calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        fixedWeekCount: false,
+        weekends: false,
         locale: 'es',
         selectable: true,
         events: '/calendar/events',
         headerToolbar: {
-            left: 'prev,next today addEventButton',
+            left: 'prev,next today',
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
-
         },
-
         buttonText: {
             today: 'Hoy',
             month: 'Mes',
@@ -100,41 +103,23 @@ document.addEventListener('DOMContentLoaded', function () {
             day: 'Día',
         },
 
-        customButtons: {
-            addEventButton: {
-                text: 'Añadir Evento',
-                click: function () {
-                    const title = prompt('Título del evento:');
-                    if (!title) return;
+        slotMinTime: '09:00:00',
+        slotMaxTime: '19:00:00',
 
-                    const dateStr = prompt('Fecha del evento (YYYY-MM-DD):');
-                    if (!dateStr) return;
-
-                    const startTime = prompt('Hora de inicio (HH:MM, 24h):');
-                    if (!startTime) return;
-
-                    const endTime = prompt('Hora de fin (HH:MM, 24h):');
-                    if (!endTime) return;
-
-                    fetch('/calendar/create-event', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            title: title,
-                            date: dateStr,
-                            startTime: `${startTime}:00`,
-                            endTime: `${endTime}:00`
-                        })
-                    })
-                        .then(res => {
-                            if (!res.ok) throw new Error('Error creando evento');
-                            calendar.refetchEvents();
-                        })
-                        .catch(err => alert('Error: ' + err.message));
-                }
+        businessHours: [
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '09:00',
+                endTime: '15:00'
             },
-        },
+            {
+                daysOfWeek: [1, 2, 3, 4, 5],
+                startTime: '16:00',
+                endTime: '18:00'
+            }
+        ],
 
+        selectConstraint: 'businessHours',
         eventClick: function (info) {
             info.jsEvent.preventDefault();
 
@@ -149,16 +134,101 @@ document.addEventListener('DOMContentLoaded', function () {
             })
                 .then(res => {
                     if (!res.ok) throw new Error('Error eliminando evento');
-                    info.event.remove(); 
-                    calendar.refetchEvents(); 
+                    info.event.remove();
+                    calendar.refetchEvents();
                 })
                 .catch(err => {
                     alert('Error eliminando evento: ' + err.message);
                 });
         },
+        dateClick: function (info) {
+            document.getElementById('event-date').value = info.dateStr;
+            document.getElementById('serv-event-form').scrollIntoView({ behavior: 'smooth' });
+        },
 
-        
+        eventContent: function (arg) {
+            const horaInicio = arg.event.start
+                ? arg.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                : '';
+            const horaFin = arg.event.end
+                ? arg.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                : '';
+
+            const titulo = arg.event.title || '';
+            const descripcion = arg.event.extendedProps.description || '';
+
+            let texto = `${horaInicio} - ${horaFin} | ${titulo} · ${descripcion}`;
+
+            return { html: `${texto}` };
+        }
     });
 
     calendar.render();
+});
+
+// Función para no permitir seleccionar horas fuera del horario laboral
+const endHourSelect = document.getElementById('end-hour');
+const endMinuteSelect = document.getElementById('end-minute');
+
+endHourSelect.addEventListener('change', () => {
+    if (endHourSelect.value === '18') {
+        endMinuteSelect.value = '00';
+        Array.from(endMinuteSelect.options).forEach(option => {
+            option.disabled = option.value !== '00';
+        });
+    } else {
+        Array.from(endMinuteSelect.options).forEach(option => {
+            option.disabled = false;
+        });
+    }
+});
+
+// Función para no permitir seleccionar sábados y domingos
+const dateInput = document.getElementById('event-date');
+
+dateInput.addEventListener('input', () => {
+    const selectedDate = new Date(dateInput.value);
+    const day = selectedDate.getUTCDay();
+
+    if (day === 0 || day === 6) {
+        alert("No se pueden seleccionar sábados ni domingos.");
+        dateInput.value = "";
+    }
+});
+
+// Çrear un nuevo evento en el calendario
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const title = document.getElementById('event-title').value;
+
+    const date = form.date.value;
+    const description = document.getElementById('event-description').value;
+
+    const startHour = document.getElementById('start-hour').value;
+    const startMinute = document.getElementById('start-minute').value;
+    const startTime = `${startHour}:${startMinute}`;
+
+    const endHour = endHourSelect.value;
+    const endMinute = endMinuteSelect.value;
+    const endTime = `${endHour}:${endMinute}`;
+
+    fetch('/calendar/create-event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            title,
+            date,
+            description,
+            startTime: `${startTime}:00`,
+            endTime: `${endTime}:00`,
+        })
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('Error creando evento');
+            calendar.refetchEvents();
+            form.reset();
+            alert('Evento creado correctamente');
+        })
+        .catch(err => alert('Error: ' + err.message));
 });

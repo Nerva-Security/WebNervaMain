@@ -80,6 +80,7 @@ async function listEvents(auth) {
   // Transformar al formato que espera FullCalendar
   const events = items.map(event => ({
     id: event.id,
+    description: event.description,
     title: event.summary,
     start: event.start.dateTime,
     end: event.end.dateTime,
@@ -316,14 +317,15 @@ app.post('/calendar/create-event', async (req, res) => {
     if (!auth) return res.status(401).send('No autenticado con Google');
 
     const calendar = google.calendar({ version: 'v3', auth });
-    const { title, date, startTime, endTime } = req.body;
+    const { title, date, description, startTime, endTime } = req.body;
 
-    if (!title || !date || !startTime || !endTime) {
-      return res.status(400).json({ message: 'Faltan datos: title, date, startTime o endTime' });
+    if (!title || !date || !description || !startTime || !endTime) {
+      return res.status(400).json({ message: 'Faltan datos: title, date, description, startTime o endTime' });
     }
 
     const event = {
       summary: title,
+      description: description || '',
       start: {
         dateTime: `${date}T${startTime}`,
         timeZone: 'Europe/Madrid',
@@ -338,7 +340,7 @@ app.post('/calendar/create-event', async (req, res) => {
       calendarId: 'primary',
       resource: event,
     });
-
+    
     res.status(200).json({ message: 'Evento creado correctamente' });
   } catch (error) {
     console.error('Error creando evento:', error);
