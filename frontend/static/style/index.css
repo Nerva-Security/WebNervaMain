@@ -1,0 +1,508 @@
+/* ==================== MAIN ====================*/
+main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 20px;
+    padding: 20px;
+}
+
+.content section {
+    animation: reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 30%;
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==================== SECCIÓN PRINCIPAL ====================*/
+.principal {
+    position: relative;
+    overflow: hidden;
+    grid-column: 1 / -1;
+    padding: 30px 80px;
+    min-height: 570px;
+}
+
+.principal .bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+
+    /* Difuminado en bordes */
+    -webkit-mask-image:
+        linear-gradient(to top, transparent 0%, black 20%, black 80%, transparent 100%),
+        linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 100%);
+    -webkit-mask-composite: destination-in;
+    mask-composite: intersect;
+    mask-image:
+        linear-gradient(to top, transparent 0%, black 20%, black 80%, transparent 100%),
+        linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 100%);
+}
+
+.principal h1,
+.principal h2,
+.principal .rrss,
+.principal button {
+    position: relative;
+    z-index: 2;
+    margin-left: 90px;
+}
+
+.principal h1 {
+    font-size: 6.5rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.principal h2 {
+    font-size: 2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.rrss {
+    display: flex;
+    padding: 10px 0px;
+    gap: 20px;
+    align-items: right;
+    justify-content: flex-start;
+}
+
+.rrss a {
+    transition: transform 0.5s ease;
+
+    &:hover {
+        transform: translateY(10px);
+    }
+}
+
+.rrss a .fa-linkedin {
+    color: #0077b5;
+}
+
+.rrss a .fa-github {
+    color: #333;
+}
+
+.rrss a .fa-envelope {
+    color: #d44638;
+}
+
+.principal button {
+    padding: 10px 20px;
+    margin-top: 70px;
+    font-size: 1rem;
+    color: #333333;
+    background-color: #ffffffaf;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow:
+        0 0 5px #aaa,
+        0 0 10px #bbb,
+        0 0 15px #ccc;
+}
+
+.principal button:hover {
+    background-color: #333;
+    color: #fff;
+    box-shadow:
+        0 0 10px #ddd,
+        0 0 20px #eee,
+        0 0 30px #fff,
+        0 0 40px #bbb;
+}
+
+.principal button i {
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+/* ==================== SECCIÓN SERVICIOS ====================*/
+.servicios {
+    grid-column: 1 / -1;
+    padding: 20px;
+    background-color: transparent;
+    text-align: center;
+    color: #333;
+}
+
+.servicios h2 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+.servicios h3 {
+    font-size: 1.7rem;
+    margin-bottom: 50px;
+    color: #666;
+}
+
+.servicios button {
+    padding: 10px 20px;
+    margin: 40px 0;
+    font-size: 1.1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.servicios button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.servicios button i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.plan-cards {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.plan-card {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 25px 20px;
+    width: 350px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.plan-card.basico {
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.3);
+}
+
+.plan-card.intermedio {
+    box-shadow: 0 0 10px rgba(255, 149, 0, 0.3);
+}
+
+.plan-card.avanzado {
+    box-shadow: 0 0 10px rgba(204, 0, 95, 0.3);
+}
+
+.plan-card.basico:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.6);
+}
+
+.plan-card.intermedio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 149, 0, 0.6);
+}
+
+.plan-card.avanzado:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(204, 0, 95, 0.6);
+}
+
+.plan-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+.plan-card p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+    color: #555;
+}
+
+.plan-card ul {
+    list-style: disc inside;
+    color: #555;
+    text-align: left;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+.plan-card ul li {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.plan-card button {
+    padding: 10px 18px;
+    font-size: 1.5rem;
+    color: #007bff;
+    background-color: transparent;
+    border: 2px solid #007bff;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.plan-card.basico button {
+    color: #007aff;
+    border: 2px solid #007aff;
+}
+
+.plan-card.basico button:hover {
+    background-color: #007aff;
+    color: white;
+}
+
+.plan-card.intermedio button {
+    color: #ff9500;
+    border: 2px solid #ff9500;
+}
+
+.plan-card.intermedio button:hover {
+    background-color: #ff9500;
+    color: white;
+}
+
+.plan-card.avanzado button {
+    color: #cc005f;
+    border: 2px solid #cc005f;
+}
+
+.plan-card.avanzado button:hover {
+    background-color: #cc005f;
+    color: white;
+}
+
+/* ==================== SECCIÓN BLOG ====================*/
+
+.blog {
+    grid-column: 1 / -1;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin: 20px 60px;
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+        url('/static/img/background-blog.jpg') right 30%/cover no-repeat;
+    text-align: center;
+}
+
+.blog h2 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.blog h4 {
+    font-size: 1.5rem;
+    color: #666;
+}
+
+.blog button {
+    padding: 10px 40px;
+    font-size: 1rem;
+    color: #333;
+    background-color: transparent;
+    border: #333 solid 1px;
+    border-radius: 6px;
+    margin-top: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.blog button:hover {
+    background-color: #666;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==================== SECCIÓN GALERIA ====================*/
+
+.galeria {
+    grid-column: 1 / -1;
+    padding: 40px 20px;
+    margin: 20px 100px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.galeria h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.galeria button {
+    padding: 10px 14px;
+    font-size: 1.8rem;
+    color: #333;
+    background-color: transparent;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.galeria button:hover {
+    background-color: #666;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+#galeria-inicio {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#galeria-inicio img {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#galeria-inicio img:hover {
+    transform: scale(1.1);
+}
+
+/* ==================== SECCIÓN CONTACTO ====================*/
+
+.contacto {
+    grid-column: 1 / -1;
+    padding: 20px 10px;
+    border-radius: 12px;
+    margin: 20px 300px;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+}
+
+.contacto h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.contacto h4 {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.contacto i {
+    font-size: 2rem;
+    color: #666;
+    border: #333 solid 1px;
+    border-radius: 40px;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contacto i:hover {
+    background-color: #666;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form {
+    margin: 0 100px;
+    background: transparent;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: opacity 0.4s ease;
+}
+
+#contact-form {
+    display: none;
+    opacity: 0;
+}
+
+#contact-form.mostrar {
+    display: flex;
+    opacity: 1;
+}
+
+.contact-form label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    color: #444;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contact-form button {
+    padding: 12px 50px;
+    font-size: 1rem;
+    align-self: center;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    background-color: transparent;
+    border: #333 solid 1px;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+    background-color: #666;
+    color: #fff;
+    transform: scale(1.03);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}

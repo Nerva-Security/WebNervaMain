@@ -1,5 +1,6 @@
 // Cargar las imágenes en la galería del blog 
-fetch('/blog/entradas?page=1&limit=1000')
+function cargarGaleria() {
+    fetch('/blog/entradas?page=1&limit=1000')
     .then(response => response.json())
     .then(entries => {
         const galeriaContainer = document.getElementById('galeria');
@@ -19,6 +20,7 @@ fetch('/blog/entradas?page=1&limit=1000')
         });
     })
     .catch(error => console.error('Error al cargar la galería:', error));
+}
 
 // Cargar las imágenes al cargar la página
 document.addEventListener('DOMContentLoaded', cargarGaleria);

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -13,15 +15,108 @@
     <header id="header"></header>
 
     <main class="content">
-        <section id="intro">
-            <h1>Bienvenido a la página principal</h1>
-            <p>Contenido de la página de inicio.</p>
+
+        <section class="principal">
+            <video class="bg-video" autoplay muted loop>
+                <source src="/static/video/background-inicio.mp4" type="video/mp4">
+                Tu navegador no soporta el video.
+            </video>
+            <h1>NERVA SECURITY</h1>
+            <h2>Formación en Ciberseguridad</h2>
+            <div class="rrss">
+                <a href="https://www.linkedin.com" target="_blank">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <a href="https://www.github.com" target="_blank">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="mailto:example@example.com">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+            </div>
+            <button type="button" onclick="window.location.href='/acerca'" ;>Conócenos <i
+                    class="fa-solid fa-arrow-right"></i></button>
         </section>
+
+        <section class="servicios">
+            <h2>Descubre nuestros planes de formación</h2>
+            <h3> Diseñados para cada nivel y necesidad</h3>
+
+            <div class="plan-cards">
+                <div class="plan-card basico">
+                    <h3>Básico</h3>
+                    <p>Alumnos de colegios</p>
+                    <ul>
+                        <li>Seguridad en internet</li>
+                        <li>Uso seguro de redes sociales</li>
+                        <li>Protección de datos personales</li>
+                    </ul>
+                    <button onclick="window.location.href='/servicios'">+</button>
+                </div>
+
+                <div class="plan-card intermedio">
+                    <h3>Intermedio</h3>
+                    <p>Trabajadores de PYMEs</p>
+                    <ul>
+                        <li>Contraseñas seguras</li>
+                        <li>Autenticación multifactor</li>
+                        <li>Buenas prácticas WiFi</li>
+                    </ul>
+                    <button onclick="window.location.href='/servicios'">+</button>
+                </div>
+
+                <div class="plan-card avanzado">
+                    <h3>Avanzado</h3>
+                    <p>Responsables de TI en PYMEs</p>
+                    <ul>
+                        <li>Respuesta a incidentes</li>
+                        <li>Cifrado avanzado</li>
+                        <li>Auditorías de seguridad</li>
+                    </ul>
+                    <button onclick="window.location.href='/servicios'">+</button>
+                </div>
+            </div>
+            <button onclick="window.location.href='/servicios'"><i class="fa-solid fa-calendar-days"></i> Reservar una
+                sesión</button>
+        </section>
+
+        <section class="blog">
+            <h2>Blog</h2>
+            <h4>Descubre las noticias y actualizaciones de Nerva Security</h4>
+            <button onclick="window.location.href='/blog'">¡Descubrir!</button>
+        </section>
+
+        <section class="galeria">
+            <h2>Explora nuestra galería de fotos <button onclick="window.location.href='/galeria'"><i class="fa-solid fa-arrow-right"></i></button></h2>
+            <div id="galeria-inicio" onclick="window.location.href='/galeria'"></div>
+        </section>
+
+        <section class="contacto">
+            <hr>
+            <h2>Contacta con nosotros</h2>
+            <h4>¿Tienes alguna pregunta? ¡Envíanos un mensaje!</h4>
+            <p><i id="email-icon" class="fa-solid fa-envelope"></i></p>
+            <form id="contact-form" class="contact-form">
+                <label for="name">Nombre:</label>
+                <input type="text" id="name">
+
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email">
+
+                <label for="message">Mensaje:</label>
+                <textarea id="message"></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+            <hr>
+        </section>
+
     </main>
 
     <div id="footer"></div>
 
     <script src="/static/script/script.js"></script>
+    <script src="/static/script/index.js"></script>
 </body>
 
 </html>

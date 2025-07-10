@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const footerHTML = `
       <footer
       >
-          <p>&copy; 2025 / NERVA SECURITY / Todos los derechos reservados.</p>
+          <p>&copy; 2025 / NERVA SECURITY · Realizado por Belén Cera / Todos los derechos reservados.</p>
       </footer>
     `;
 
