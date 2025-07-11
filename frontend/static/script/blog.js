@@ -1,13 +1,13 @@
 // Variables generales del blog
-const addEntryButton = document.getElementById('add-entry');
-const blogForm = document.getElementById('blog-form');
-const blogFormContainer = document.querySelector('.blog-form');
-const blogCard = document.getElementById('blog-card');
+const addEntryButton = document.getElementById('add-entry'); // Botón para añadir una entrada
+const blogForm = document.getElementById('blog-form'); // Formulario del blog
+const blogFormContainer = document.querySelector('.blog-form'); // Contenedor del formulario
+const blogCard = document.getElementById('blog-card'); // Contenedor de las entradas del blog
 
 // Variables del formulario
-const tituloInput = document.getElementById('titulo');
-const contenidoInput = document.getElementById('contenido');
-const imagenInput = document.getElementById('imagen');
+const tituloInput = document.getElementById('titulo'); // Input para el título de la entrada
+const contenidoInput = document.getElementById('contenido'); // Input para el contenido de la entrada
+const imagenInput = document.getElementById('imagen'); // Input para la imagen de la entrada
 
 // Variable para la fecha
 const fecha = new Date().toLocaleString('es-ES', {
@@ -15,16 +15,16 @@ const fecha = new Date().toLocaleString('es-ES', {
 });
 
 // Variables para controlar el estado de edición
-let isEditing = false;
-let editingId = null;
-let existingImage = null;
+let isEditing = false; // Indica si estamos editando una entrada
+let editingId = null; // ID de la entrada que estamos editando
+let existingImage = null; // URL de la imagen existente (si la hay)
 
 // Variables para manejar la paginación
-const entryPagesSelect = document.getElementById('entry-pages');
-const loadMoreButton = document.getElementById('load-more');
-let currentPage = 1;
-let entriesPerPage = 10;
-let moreEntriesAvailable = true;
+const entryPagesSelect = document.getElementById('entry-pages'); // Selector para el número de entradas por página
+const loadMoreButton = document.getElementById('load-more'); // Botón para cargar más entradas
+let currentPage = 1; // Página actual de las entradas
+let entriesPerPage = 10; // Número de entradas por página
+let moreEntriesAvailable = true; // Indica si hay más entradas disponibles para cargar
 
 // Función para reiniciar el formulario
 function resetForm() {
@@ -58,11 +58,11 @@ entryPagesSelect.addEventListener('change', function () {
   cargarEntradas(currentPage, entriesPerPage);
 });
 
-// Función para cargar las entradas del blog desde el servidor
+// Función para cargar las entradas del blog desde el servidor 
 function cargarEntradas(page = 1, limit = 10) {
-  fetch(`/blog/entradas?page=${page}&limit=${limit}`)
+  fetch(`/blog/entradas?page=${page}&limit=${limit}`) 
     .then(response => response.json())
-    .then(entries => {
+    .then(entries => { 
       if (page === 1) blogCard.innerHTML = '';
       entries.forEach(entry => {
         const entryElement = document.createElement('div');
@@ -74,6 +74,7 @@ function cargarEntradas(page = 1, limit = 10) {
         const primerParrafo = parrafos[0] ? `<p>${parrafos[0]}</p>` : '';
         const restoParrafos = parrafos.slice(1).map(p => `<p>${p}</p>`).join('');
 
+        // Crear el contenido de la entrada y añadirla al contenedor
         entryElement.innerHTML = `
           <img src="${entry.imagen}" class="entry-img">
           <div class="entry-content">
@@ -129,6 +130,7 @@ blogForm.addEventListener('submit', function (event) {
   // Usar la imagen existente si no hay nueva imagen seleccionada
   let imageUrl = existingImage;
 
+  // Si hay una nueva imagen seleccionada, subirla
   if (imagenInput.files.length > 0) {
     const formData = new FormData();
     formData.append('image', imagenInput.files[0]);
@@ -147,6 +149,7 @@ blogForm.addEventListener('submit', function (event) {
           imagen: imageUrl,
         };
 
+        // Si estamos editando, usamos PUT, si no, usamos POST
         if (isEditing) {
           // Editar entrada con PUT
           fetch(`/blog/entradas/${editingId}`, {
@@ -292,10 +295,12 @@ blogCard.addEventListener('click', function (event) {
 blogCard.addEventListener('click', function (event) {
   const readMoreButton = event.target.closest('.read-more');
 
+  // Si se hace clic en el botón "Leer más"
   if (readMoreButton) {
     const entryElement = readMoreButton.closest('.blog-entry');
     const hiddenContent = entryElement.querySelector('.hidden-content');
 
+    // Alternar la visibilidad del contenido
     if (hiddenContent.style.display === 'none') {
       hiddenContent.style.display = 'block';
       readMoreButton.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';

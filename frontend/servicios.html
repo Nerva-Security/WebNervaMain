@@ -13,16 +13,25 @@
 </head>
 
 <body>
+
+    <!-- Header: Logo y menú. Se carga con JS -->
     <header id="header"></header>
 
     <main class="content">
+
+        <!-- Título de la página -->
         <div class="serv-header">
             <h1>Formación en Ciberseguridad</h1>
             <h2>Elige el plan que mejor se adapte a ti</h2>
         </div>
+
+        <!-- Contenedor de paquetes de servicios -->
         <div class="serv-packages">
 
+            <!-- Paquete básico -->
             <div class="serv-pack basico">
+
+                <!-- Descripción general del paquete -->
                 <div class="pack-general">
                     <h3>Conciencia básica en ciberseguridad</h3>
                     <h4>Alumnos de colegios</h4>
@@ -30,7 +39,11 @@
                     <p>Concienciación digital para centros educativos, con nociones clave sobre seguridad online, redes
                         sociales y protección de datos.</p>
                 </div>
+
+                <!-- Botón para desplegar la descripción detallada del paquete -->
                 <button class="info-serv">Saber más</button>
+
+                <!-- Descripción detallada del paquete -->
                 <div class="pack-details">
                     <p><b>Temas principales:</b></p>
                     <ul>
@@ -46,10 +59,15 @@
                         <li>Pago por sesión</li>
                     </ul>
                 </div>
+
+                <!-- Botón para seleccionar el paquete -->
                 <button class="select-serv">Seleccionar</button>
             </div>
 
+            <!-- Paquete intermedio -->
             <div class="serv-pack intermedio">
+
+                <!-- Descripción general del paquete -->
                 <div class="pack-general">
                     <h3>Ciberseguridad esencial</h3>
                     <h4>Trabajadores de PYMEs</h4>
@@ -57,7 +75,11 @@
                     <p>Formación práctica para empleados de pequeñas empresas que necesitan proteger sus herramientas y
                         datos digitales del día a día.</p>
                 </div>
+
+                <!-- Botón para desplegar la descripción detallada del paquete -->
                 <button class="info-serv">Saber más</button>
+
+                <!-- Descripción detallada del paquete -->
                 <div class="pack-details">
                     <p><b>Temas:</b></p>
                     <ul>
@@ -73,10 +95,15 @@
                         <li>Pago por sesión</li>
                     </ul>
                 </div>
+
+                <!-- Botón para seleccionar el paquete -->
                 <button class="select-serv">Seleccionar</button>
             </div>
 
+            <!-- Paquete avanzado -->
             <div class="serv-pack avanzado">
+
+                <!-- Descripción general del paquete -->
                 <div class="pack-general">
                     <h3>Ciberseguridad avanzada</h3>
                     <h4>Responsables de TI en PYMEs</h4>
@@ -84,7 +111,11 @@
                     <p>Capacitación intensiva para responsables de TI con foco en detección de amenazas, configuración
                         segura y respuesta a incidentes.</p>
                 </div>
+
+                <!-- Botón para desplegar la descripción detallada del paquete -->
                 <button class="info-serv">Saber más</button>
+
+                <!-- Descripción detallada del paquete -->
                 <div class="pack-details">
                     <p><b>Temas:</b></p>
                     <ul>
@@ -102,20 +133,28 @@
                     </ul>
                 </div>
 
+                <!-- Botón para seleccionar el paquete -->
                 <button class="select-serv">Seleccionar</button>
             </div>
         </div>
 
+        <!-- Título de reserva de sesión -->
         <div class="serv-text">
             <h1>Reserva tu sesión</h1><br>
             <h2><i class="fa-solid fa-arrow-down"></i></h2>
         </div>
 
+        <!-- Contenedor de formulario de reserva de sesión -->
         <div id="serv-event-form" class="serv-event-form">
+
+            <!-- Formulario para crear un evento de reserva -->
             <form id="event-form">
+
+                <!-- Campo para la descripción de la reserva -->
                 <label for="event-description">Descripción de la reserva:</label>
                 <input type="text" id="event-description" name="description" placeholder="Escribe aquí..." required>
 
+                <!-- Campo para seleccionar el paquete -->
                 <label for="event-title">Paquete:</label>
                 <select name="title" id="event-title" required>
                     <option value="">Selecciona un paquete</option>
@@ -124,11 +163,15 @@
                     <option value="Ciberseguridad avanzada">Ciberseguridad avanzada</option>
                 </select>
 
+                <!-- Campo para seleccionar la fecha del evento -->
                 <label for="event-date">Fecha:</label>
                 <input type="date" id="event-date" name="date" required>
 
+                <!-- Contenedor para seleccionar la hora de inicio y fin -->
                 <div class="time-container">
                     <div class="time-block">
+
+                        <!-- Campo para seleccionar la hora de inicio -->
                         <label for="start-hour">Hora inicio:</label>
                         <div class="time-select">
                             <select name="startHour" id="start-hour" required>
@@ -151,6 +194,7 @@
                         </div>
                     </div>
 
+                    <!-- Campo para seleccionar la hora de fin -->
                     <div class="time-block">
                         <label for="end-hour">Hora fin:</label>
                         <div class="time-select">
@@ -176,15 +220,19 @@
                     </div>
                 </div>
 
+                <!-- Botón para crear el evento -->
                 <button type="submit">Crear evento</button>
             </form>
         </div>
 
+        <!-- Contenedor del calendario. Se cargara dinamicamente Google Calendar (FullCalendar) -->
         <div class="serv-calendar" id="calendar"></div>
     </main>
 
+    <!-- Footer: Información. Se carga con JS -->
     <div id="footer"></div>
 
+    <!-- Scripts -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
     <script src="/static/script/script.js"></script>
     <script src="/static/script/servicios.js"></script>

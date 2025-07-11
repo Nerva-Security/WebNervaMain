@@ -1,4 +1,6 @@
 /* ==================== MAIN ====================*/
+
+/* Estilos generales */
 main {
     display: grid;
     grid-template-columns: 1fr;
@@ -7,12 +9,15 @@ main {
 }
 
 /* ==================== HEADER ====================*/
+
+/* Contenedor del titulo de la pagina */
 .serv-header {
     grid-column: 1 / -1;
     padding: 20px;
     text-align: center;
 }
 
+/* Titulo principal */
 .serv-header h1 {
     font-size: 3.5rem;
     font-weight: 700;
@@ -30,9 +35,9 @@ main {
 }
 
 
-/* ==================== PAQUETES ====================*/
+/* ======================== PAQUETES ==========================*/
 
-/*-------- BLOQUES GENERALES -----------*/
+/* Contenedor de paquetes de servicios */
 .serv-packages {
     grid-column: 1 / -1;
     display: flex;
@@ -43,6 +48,7 @@ main {
     gap: 40px;
 }
 
+/* Paquete de servicio */
 .serv-pack {
     display: flex;
     flex-direction: column;
@@ -61,6 +67,7 @@ main {
     transform: translateY(-5px) scale(1.04);
 }
 
+/* Descripcion general del paquete */
 .pack-general {
     display: flex;
     flex-direction: column;
@@ -70,6 +77,7 @@ main {
     margin-bottom: 10px;
 }
 
+/* Detalles del paquete. Ocultos por defecto */
 .pack-details {
     max-height: 0;
     opacity: 0;
@@ -78,11 +86,13 @@ main {
     margin-bottom: 20px;
 }
 
+/* Mostrar detalles al hacer clic */
 .serv-pack .pack-details.visible {
     max-height: 500px;
     opacity: 1;
 }
 
+/* Estilos personalizados de cada paquete */
 .serv-pack.basico {
     background: linear-gradient(#fff, #fff) padding-box,
         linear-gradient(135deg, #007aff, #60c6ff) border-box;
@@ -103,12 +113,12 @@ main {
     box-shadow: 0 0 18px #ff4b2b99;
 }
 
-/* Estrella*/
+/* Estrella del paquete avanzado */
 .serv-pack:nth-child(3) {
     position: relative;
 }
 
-/* Triángulo de fondo */
+/* Triángulo de fondo de la estrella */
 .serv-pack:nth-child(3)::before {
     content: "";
     position: absolute;
@@ -123,7 +133,7 @@ main {
     z-index: 10;
 }
 
-/* Estrella blanca */
+/* Estrella blanca del paquete avanzado */
 .serv-pack:nth-child(3)::after {
     content: "★";
     position: absolute;
@@ -136,8 +146,7 @@ main {
     pointer-events: none;
 }
 
-/*-------- TITULOS, PARRAFOS, LISTAS -----------*/
-
+/*Titulos y descripciones del paquete*/
 .serv-pack h3 {
     font-size: 1.6rem;
     margin-bottom: 10px;
@@ -189,13 +198,13 @@ main {
     padding-left: 1.5em;
 }
 
-/*-------- BOTONES -----------*/
-
+/* Estilos de botones */
 .serv-pack button {
     width: auto;
     align-self: center;
 }
 
+/* Boton de detalles del paquete */
 .info-serv {
     padding: 10px 15px;
     font-size: 0.9rem;
@@ -211,6 +220,7 @@ main {
     scale: 1.05;
 }
 
+/* Boton de seleccionar servicio */
 .select-serv {
     padding: 10px 30px;
     margin-top: 20px;
@@ -227,6 +237,7 @@ main {
     scale: 1.05;
 }
 
+/* Estilos personalizados de cada boton de paquete */
 .serv-pack.basico .select-serv {
     background-color: #007aff;
 }
@@ -252,12 +263,15 @@ main {
 }
 
 /* ==================== TITULOS Y TEXTO ====================*/
+
+/* Contenedor de texto de servicios */
 .serv-text {
     text-align: center;
     padding: 20px;
     margin: 0 40px;
 }
 
+/* Titulos de servicios */
 .serv-text h1 {
     font-size: 2.5rem;
     font-weight: 700;
@@ -271,6 +285,8 @@ main {
 }
 
 /* ==================== GOOGLE CALENDAR ====================*/
+
+/* Contenedor del calendario */
 .serv-calendar {
     grid-column: 1 / -1;
     margin: 40px;
@@ -283,6 +299,7 @@ main {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* Botones del calendario */
 .fc .fc-button {
   background-color: #4a90e2; 
   color: #fff;
@@ -295,6 +312,7 @@ main {
   background-color: #357ab7;
 }
 
+/* Eventos del calendario */
 .fc-event {
   background-color: #357ab7b1;
   border: none;
@@ -309,6 +327,8 @@ main {
 }
 
 /* ==================== FORMULARIO AÑADIR EVENTO ====================*/
+
+/* Contenedor del formulario */
 .serv-event-form {
     grid-column: 1 / -1;
     background-color: #f7f9fb;
@@ -319,6 +339,7 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* Input de hora */
 .time-container {
     display: flex;
     gap: 40px; 
@@ -347,6 +368,7 @@ main {
     width: 70px; 
 }
 
+/* Formulario de evento general */
 #event-form {
     display: flex;
     flex-direction: column;
@@ -360,6 +382,7 @@ main {
     border: 1px solid #bbb;
 }
 
+/* Boton de crear evento */
 #event-form button {
     background-color: #0b63ce;
     color: white;

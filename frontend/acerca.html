@@ -11,15 +11,24 @@
 </head>
 
 <body>
+
+    <!-- Header: Logo y menú. Se carga con JS -->
     <header id="header"></header>
 
     <div class="content">
         <main>
 
+            <!-- Sección de introducción: Resumen de la empresa -->
             <section class="intro" id="intro">
+
+                <!-- Parte izquierda de la sección -->
                 <div class="intro-left">
+
+                    <!-- Títulos de la sección -->
                     <h1>NERVA SECURITY</h1>
                     <h2>Empresa Especializada en Ciberseguridad</h2>
+
+                    <!-- Iconos de redes sociales -->
                     <div class="rrss">
                         <a href="https://www.linkedin.com" target="_blank">
                             <i class="fab fa-linkedin fa-2x"></i>
@@ -33,7 +42,10 @@
                     </div>
                 </div>
 
+                <!-- Parte derecha de la sección -->
                 <div class="intro-right">
+
+                    <!-- Descripción de la empresa -->
                     <p>
                         NERVA LDPTS es una empresa enfocada en la enseñanza de ciberseguridad y la protección de datos.
                     </p>
@@ -50,11 +62,18 @@
                 </div>
             </section>
 
+            <!-- Sección de competencias -->
             <section class="competencias" id="competencias">
+
+                <!-- Título de la sección -->
                 <div class="competencias-title">
                     <h2>Donde marcamos la <span class="diferencia">DIFERENCIA</span></h2>
                 </div>
+
+                <!-- Lista de competencias -->
                 <div class="competencias-list">
+
+                    <!-- Tarjetas de competencias -->
                     <div class="competencias-card">
                         <i class="fa-solid fa-shield-halved"></i>
                         <h3>Pentesting</h3>
@@ -79,16 +98,21 @@
                 </div>
             </section>
 
+            <!-- Sección de trayectoria -->
             <section class="trayectoria" id="Trayectoria">
-                
+
+                <!-- Certificaciones de la empresa -->
                 <div class="certificaciones">
                     <p>Contamos con personal certificado en:</p>
+
+                    <!-- Slider de logos decertificaciones -->
                     <div class="slider-cert">
                         <div class="slider-cert-track">
                             <img src="/static/img/logo-CEH.png" alt="CEH Logo" class="cert-img">
                             <img src="/static/img/logo-CISSP.png" alt="CISSP Logo" class="cert-img">
                             <img src="/static/img/logo-compTIA.png" alt="CompTIA Logo" class="cert-img">
-                            <!--Duplicadas para que funcione el loop del slider-->
+
+                            <!-- Imágenes duplicadas para que funcione el loop del slider -->
                             <img src="/static/img/logo-CEH.png" alt="CEH Logo" class="cert-img">
                             <img src="/static/img/logo-CISSP.png" alt="CISSP Logo" class="cert-img">
                             <img src="/static/img/logo-compTIA.png" alt="CompTIA Logo" class="cert-img">
@@ -96,13 +120,16 @@
                     </div>
                 </div>
 
+                <!-- Experiencia de la empresa -->
                 <div class="experiencia">
                     <p>Colaboramos con instituciones educativas y empresas:</p>
+
+                    <!-- Slider de logos de empresas colaboradoras -->
                     <div class="slider-exp">
                         <div class="slider-exp-img">
-                                <img src="/static/img/logo-JJAA.png" alt="Junta Andalucia Logo" class="exp-img" id="exp-1">
-                                <img src="/static/img/logo-sev.png" alt="Ayto Sevilla Logo" class="exp-img" id="exp-2">
-                                <img src="/static/img/logo-cad.png" alt="Ayto Cadiz Logo" class="exp-img" id="exp-3">
+                            <img src="/static/img/logo-JJAA.png" alt="Junta Andalucia Logo" class="exp-img" id="exp-1">
+                            <img src="/static/img/logo-sev.png" alt="Ayto Sevilla Logo" class="exp-img" id="exp-2">
+                            <img src="/static/img/logo-cad.png" alt="Ayto Cadiz Logo" class="exp-img" id="exp-3">
                         </div>
                         <div class="slider-exp-nav">
                             <a href="#exp-1" class="slider-exp-button"></a>
@@ -112,13 +139,13 @@
                     </div>
                 </div>
             </section>
-
-            
-    </main>
+        </main>
     </div>
 
+    <!-- Footer: Información. Se carga con JS -->
     <div id="footer"></div>
 
+    <!-- Scripts -->
     <script src="/static/script/script.js"></script>
 </body>
 

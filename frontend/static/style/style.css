@@ -35,6 +35,7 @@ body{
     animation-timeline: scroll(root);
 }
 
+/* Animación para el header al hacer scroll */
 @keyframes scrollHeader {
     to {
         background: rgba(255, 255, 255, 0.4);
@@ -43,6 +44,7 @@ body{
     }
 }
 
+/* Contenedor del logo y menú */
 .header-menu{
     flex: 1; 
     display: flex;
@@ -55,12 +57,12 @@ body{
     border-radius: 15px;
 }
 
+/* Logo de la empresa en el header */
 .logo img {
     height: 60px; 
 }
 
-/* -------- Menú header --------*/
-
+/* Menú header */
 nav ul {
     list-style: none;
     display: flex;
@@ -92,6 +94,7 @@ nav ul li a {
     opacity: 0;
 }
 
+/* Animación de aparición de secciones al hacer scroll */
 @keyframes fadeIn {
     to {
         opacity: 1;

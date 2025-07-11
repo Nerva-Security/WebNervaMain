@@ -11,18 +11,25 @@
 </head>
 
 <body>
-
+    <!-- Header: Logo y menú. Se carga con JS -->
     <header id="header"></header>
 
     <main class="content">
 
+        <!-- Sección principal: Portada de la web -->
         <section class="principal">
+
+            <!-- Video de fondo -->
             <video class="bg-video" autoplay muted loop>
                 <source src="/static/video/background-inicio.mp4" type="video/mp4">
                 Tu navegador no soporta el video.
             </video>
+
+            <!-- Títulos de la sección -->
             <h1>NERVA SECURITY</h1>
             <h2>Formación en Ciberseguridad</h2>
+
+            <!-- Botones de redes sociales -->
             <div class="rrss">
                 <a href="https://www.linkedin.com" target="_blank">
                     <i class="fab fa-linkedin fa-2x"></i>
@@ -34,15 +41,23 @@
                     <i class="fas fa-envelope fa-2x"></i>
                 </a>
             </div>
+
+            <!-- Botón para redirigir a "Acerca de" -->
             <button type="button" onclick="window.location.href='/acerca'" ;>Conócenos <i
                     class="fa-solid fa-arrow-right"></i></button>
         </section>
 
+        <!-- Sección de servicios: Resumen planes de formación -->
         <section class="servicios">
+
+            <!-- Títulos de la sección -->
             <h2>Descubre nuestros planes de formación</h2>
             <h3> Diseñados para cada nivel y necesidad</h3>
 
+            <!-- Planes de formación -->
             <div class="plan-cards">
+
+                <!-- Resumen plan básico -->
                 <div class="plan-card basico">
                     <h3>Básico</h3>
                     <p>Alumnos de colegios</p>
@@ -54,6 +69,7 @@
                     <button onclick="window.location.href='/servicios'">+</button>
                 </div>
 
+                <!-- Resumen plan intermedio -->
                 <div class="plan-card intermedio">
                     <h3>Intermedio</h3>
                     <p>Trabajadores de PYMEs</p>
@@ -65,6 +81,7 @@
                     <button onclick="window.location.href='/servicios'">+</button>
                 </div>
 
+                <!-- Resumen plan avanzado -->
                 <div class="plan-card avanzado">
                     <h3>Avanzado</h3>
                     <p>Responsables de TI en PYMEs</p>
@@ -76,35 +93,45 @@
                     <button onclick="window.location.href='/servicios'">+</button>
                 </div>
             </div>
+
+            <!-- Botón para redirigir a "Servicios" -->
             <button onclick="window.location.href='/servicios'"><i class="fa-solid fa-calendar-days"></i> Reservar una
                 sesión</button>
         </section>
 
+        <!-- Sección blog: Con botón para acceder al blog -->
         <section class="blog">
             <h2>Blog</h2>
             <h4>Descubre las noticias y actualizaciones de Nerva Security</h4>
             <button onclick="window.location.href='/blog'">¡Descubrir!</button>
         </section>
 
+        <!-- Sección galería: Aparecen las dos ultimas fotos, con botón para redirigir a "Galería" -->
         <section class="galeria">
-            <h2>Explora nuestra galería de fotos <button onclick="window.location.href='/galeria'"><i class="fa-solid fa-arrow-right"></i></button></h2>
+            <h2>Explora nuestra galería de fotos <button onclick="window.location.href='/galeria'"><i
+                        class="fa-solid fa-arrow-right"></i></button></h2>
             <div id="galeria-inicio" onclick="window.location.href='/galeria'"></div>
         </section>
 
+        <!-- Sección contacto -->
         <section class="contacto">
             <hr>
             <h2>Contacta con nosotros</h2>
             <h4>¿Tienes alguna pregunta? ¡Envíanos un mensaje!</h4>
+
+            <!-- Icono de correo electrónico -->
             <p><i id="email-icon" class="fa-solid fa-envelope"></i></p>
+
+            <!-- Formulario de contacto -->
             <form id="contact-form" class="contact-form">
                 <label for="name">Nombre:</label>
-                <input type="text" id="name">
+                <input type="text" id="name" required>
 
                 <label for="email">Correo electrónico:</label>
-                <input type="email" id="email">
+                <input type="email" id="email" required>
 
                 <label for="message">Mensaje:</label>
-                <textarea id="message"></textarea>
+                <textarea id="message" required></textarea>
 
                 <button type="submit">Enviar</button>
             </form>
@@ -113,8 +140,10 @@
 
     </main>
 
+    <!-- Footer: Información. Se carga con JS -->
     <div id="footer"></div>
 
+    <!-- Scripts -->
     <script src="/static/script/script.js"></script>
     <script src="/static/script/index.js"></script>
 </body>

@@ -1,7 +1,4 @@
-//===========================================
-// CARGAR HEADER Y FOOTER EN TODOS LOS HTML
-//===========================================
-
+// Carga el header y footer de la página
 document.addEventListener("DOMContentLoaded", () => {
     // Definir el HTML del header
     const headerHTML = ` 

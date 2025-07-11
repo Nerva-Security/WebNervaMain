@@ -1,4 +1,6 @@
-/* ==================== MAIN ====================*/
+/* ======================= MAIN =======================*/
+
+/* Estilos generales */
 main {
     display: grid;
     grid-template-columns: 1fr;
@@ -7,6 +9,7 @@ main {
     padding: 20px;
 }
 
+/* Animación de aparición de secciones al hacer scroll */
 .content section {
     animation: reveal linear both;
     animation-timeline: view();
@@ -24,6 +27,8 @@ main {
 }
 
 /* ==================== SECCIÓN PRINCIPAL ====================*/
+
+/* Estilos generales de la sección principal */
 .principal {
     position: relative;
     overflow: hidden;
@@ -32,6 +37,7 @@ main {
     min-height: 570px;
 }
 
+/* Vídeo de fondo */
 .principal .bg-video {
     position: absolute;
     top: 0;
@@ -53,6 +59,7 @@ main {
         linear-gradient(to left, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
+/* Ajustar posición de los elementos dentro de la sección */
 .principal h1,
 .principal h2,
 .principal .rrss,
@@ -62,6 +69,7 @@ main {
     margin-left: 90px;
 }
 
+/* Títulos de la sección */
 .principal h1 {
     font-size: 6.5rem;
     color: #333;
@@ -74,6 +82,7 @@ main {
     margin-bottom: 20px;
 }
 
+/* Iconos de redes sociales con animación */
 .rrss {
     display: flex;
     padding: 10px 0px;
@@ -102,6 +111,7 @@ main {
     color: #d44638;
 }
 
+/* Botón de "Conócenos" */
 .principal button {
     padding: 10px 20px;
     margin-top: 70px;
@@ -134,6 +144,8 @@ main {
 }
 
 /* ==================== SECCIÓN SERVICIOS ====================*/
+
+/* Estilos generales de la sección de servicios */
 .servicios {
     grid-column: 1 / -1;
     padding: 20px;
@@ -142,6 +154,7 @@ main {
     color: #333;
 }
 
+/* Títulos de la sección */
 .servicios h2 {
     font-size: 3.5rem;
     margin-bottom: 10px;
@@ -153,6 +166,7 @@ main {
     color: #666;
 }
 
+/* Botón de "Reservar una sesión" */
 .servicios button {
     padding: 10px 20px;
     margin: 40px 0;
@@ -175,6 +189,7 @@ main {
     font-size: 1.2rem;
 }
 
+/* Bloque de tarjetas de servicios */
 .plan-cards {
     display: flex;
     gap: 50px;
@@ -182,6 +197,7 @@ main {
     flex-wrap: wrap;
 }
 
+/* Tarjeta de servicios */
 .plan-card {
     background: #f5f5f5;
     border-radius: 10px;
@@ -194,6 +210,7 @@ main {
     align-items: center;
 }
 
+/* Sombra de las tarjetas de servicios */
 .plan-card.basico {
     box-shadow: 0 0 10px rgba(0, 122, 255, 0.3);
 }
@@ -206,6 +223,7 @@ main {
     box-shadow: 0 0 10px rgba(204, 0, 95, 0.3);
 }
 
+/* Efecto hover de las tarjetas de servicios */
 .plan-card.basico:hover {
     transform: translateY(-5px);
     box-shadow: 0 0 20px rgba(0, 122, 255, 0.6);
@@ -221,6 +239,7 @@ main {
     box-shadow: 0 0 20px rgba(204, 0, 95, 0.6);
 }
 
+/* Títulos y descripciones de las tarjetas de servicios */
 .plan-card h3 {
     font-size: 1.8rem;
     margin-bottom: 12px;
@@ -247,6 +266,7 @@ main {
     font-size: 1.1rem;
 }
 
+/* Botón "+" de las tarjetas de servicios */
 .plan-card button {
     padding: 10px 18px;
     font-size: 1.5rem;
@@ -258,6 +278,7 @@ main {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+/* Efecto personalizado de los botones según el plan */
 .plan-card.basico button {
     color: #007aff;
     border: 2px solid #007aff;
@@ -290,6 +311,7 @@ main {
 
 /* ==================== SECCIÓN BLOG ====================*/
 
+/* Estilos generales de la sección del blog */
 .blog {
     grid-column: 1 / -1;
     padding: 40px 20px;
@@ -301,6 +323,7 @@ main {
     text-align: center;
 }
 
+/* Títulos y descripciones*/
 .blog h2 {
     font-size: 3rem;
     color: #333;
@@ -312,6 +335,7 @@ main {
     color: #666;
 }
 
+/* Botón de "Descubrir" */
 .blog button {
     padding: 10px 40px;
     font-size: 1rem;
@@ -334,6 +358,7 @@ main {
 
 /* ==================== SECCIÓN GALERIA ====================*/
 
+/* Estilos generales de la sección de galería */
 .galeria {
     grid-column: 1 / -1;
     padding: 40px 20px;
@@ -344,12 +369,14 @@ main {
     align-items: center;
 }
 
+/* Títulos de la sección */
 .galeria h2 {
     font-size: 2.5rem;
     color: #333;
     margin-bottom: 20px;
 }
 
+/* Botón de la flecha para redirigir a "Galería" */
 .galeria button {
     padding: 10px 14px;
     font-size: 1.8rem;
@@ -370,6 +397,7 @@ main {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Contenedor de la galería */
 #galeria-inicio {
     display: flex;
     flex-direction: row;
@@ -379,6 +407,7 @@ main {
     margin-top: 20px;
 }
 
+/* Imágenes de la galería */
 #galeria-inicio img {
     max-width: 500px;
     width: 100%;
@@ -396,6 +425,7 @@ main {
 
 /* ==================== SECCIÓN CONTACTO ====================*/
 
+/* Estilos generales de la sección de contacto */
 .contacto {
     grid-column: 1 / -1;
     padding: 20px 10px;
@@ -405,6 +435,7 @@ main {
     text-align: center;
 }
 
+/* Títulos de la sección */
 .contacto h2 {
     font-size: 2.5rem;
     color: #333;
@@ -418,6 +449,7 @@ main {
     margin-bottom: 20px;
 }
 
+/* Botón icono correo electrónico */
 .contacto i {
     font-size: 2rem;
     color: #666;
@@ -438,6 +470,7 @@ main {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Formulario de contacto */
 .contact-form {
     margin: 0 100px;
     background: transparent;
@@ -448,16 +481,19 @@ main {
     transition: opacity 0.4s ease;
 }
 
+/* Ocultar el formulario por defecto */
 #contact-form {
     display: none;
     opacity: 0;
 }
 
+/* Mostrar el formulario al hacer clic en el botón */
 #contact-form.mostrar {
     display: flex;
     opacity: 1;
 }
 
+/* Estilos de los campos del formulario */
 .contact-form label {
     font-size: 1rem;
     font-weight: 600;
@@ -485,6 +521,7 @@ main {
     outline: none;
 }
 
+/* Estilos del botón de enviar el formulario */
 .contact-form button {
     padding: 12px 50px;
     font-size: 1rem;

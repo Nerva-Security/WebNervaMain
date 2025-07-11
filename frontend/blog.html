@@ -11,17 +11,21 @@
 </head>
 
 <body>
+
+    <!-- Header: Logo y menú. Se carga con JS -->
     <header id="header"></header>
 
     <main class="content">
 
-        <!--Blog Header-->
+        <!-- Título de la página -->
         <div class="blog-header">
             <h1>Blog</h1>
         </div>
 
-        <!--Filtrar número de entradas o palabras-->
+        <!-- Contenedor de filtros -->
         <div class="blog-filter">
+
+            <!-- Filtro por página -->
             <div class="blog-entry-pages">
                 <label for="entry-pages">Mostrar por página:</label>
                 <select id="entry-pages">
@@ -31,19 +35,24 @@
                     <option value="0">Todas</option>
                 </select>
             </div>
+
+            <!-- Filtro por palabra -->
             <div class="blog-search">
                 <input type="text" id="search-input" placeholder="Buscar entradas...">
                 <button id="search-entry"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </div>
 
-        <!--Formulario añadir/editar entradas-->
+        <!-- Contenedor de edición -->
         <div class="blog-edit">
+
+            <!-- Botón de "Añadir entrada" -->
             <div class="blog-buttons">
                 <button class="add-entry" id="add-entry">+</button>
             </div>
 
             <div class="blog-form">
+                <!-- Formulario de añadir/editar entradas del blog -->
                 <form id="blog-form">
                     <label for="titulo">Título</label><br>
                     <input type="text" id="titulo" required><br>
@@ -55,22 +64,25 @@
                     <div id="img-preview"></div>
                     <input type="file" id="imagen" accept="image/*">
 
+                    <!-- Botón de publicar -->
                     <button type="submit">Publicar</button>
                 </form>
             </div>
         </div>
 
-        <!--Entradas del blog-->
+        <!-- Contenedor para entradas del blog -->
         <div id="blog-card" class="blog-card"></div>
 
-        <!--Botón "Cargar más"-->
+        <!-- Botón para "Cargar más" -->
         <div class="blog-load-more">
             <button class="load-more" id="load-more">Cargar más</i></button>
         </div>
     </main>
 
+    <!-- Footer: Información. Se carga con JS -->
     <div id="footer"></div>
 
+    <!-- Scripts -->
     <script src="/static/script/script.js"></script>
     <script src="/static/script/blog.js"></script>
 </body>

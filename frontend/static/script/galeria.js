@@ -3,9 +3,10 @@ function cargarGaleria() {
     fetch('/blog/entradas?page=1&limit=1000')
     .then(response => response.json())
     .then(entries => {
-        const galeriaContainer = document.getElementById('galeria');
-        galeriaContainer.innerHTML = '';
+        const galeriaContainer = document.getElementById('galeria'); // Contenedor de la galería
+        galeriaContainer.innerHTML = ''; // Limpiar el contenido previo
 
+        // Recorrer las entradas y crear elementos de imagen
         entries.forEach(entry => {
             const imgElement = document.createElement('img');
             imgElement.src = entry.imagen;

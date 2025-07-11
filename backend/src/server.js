@@ -1,19 +1,19 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const fsp = require('fs').promises;
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const dotenv = require('dotenv');
-const { google } = require('googleapis');
+const express = require('express'); // Importar las dependencias necesarias
+const path = require('path'); // Importar el módulo 'path' para manejar rutas de archivos
+const fs = require('fs'); // Importar el módulo 'fs' para manejar el sistema de archivos
+const fsp = require('fs').promises; // Importar el módulo 'fs' con promesas
+const multer = require('multer'); // Importar multer para manejar la subida de archivos
+const cloudinary = require('cloudinary').v2; // Importar Cloudinary para manejar el almacenamiento en la nube
+const { CloudinaryStorage } = require('multer-storage-cloudinary'); // Importar CloudinaryStorage para manejar el almacenamiento en Cloudinary
+const dotenv = require('dotenv'); // Importar dotenv para manejar variables de entorno
+const { google } = require('googleapis'); // Importar Google APIs para manejar Google Calendar
 
-dotenv.config();
+dotenv.config(); // Cargar las variables de entorno desde el archivo .env
 
-const app = express();
-const PORT = 5000;
+const app = express(); // Crear una instancia de Express
+const PORT = 5000; // Puerto donde el servidor escuchará
 
-// Configuración de Cloudinary + multer
+// Configuración de Cloudinary y multer. Para la subida de imagenes a Cloudinary y almacenamiento en la nube
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -36,10 +36,13 @@ const SCOPES = [
   'https://www.googleapis.com/auth/calendar',
   'https://www.googleapis.com/auth/calendar.events',
 ];
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
+const TOKEN_PATH = path.join(process.cwd(), 'token.json'); // Ruta donde se guardará el token de acceso
+const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json'); // Ruta donde se guardarán las credenciales de la API
 
+// Inicializar el cliente de OAuth2 de Google
 let oAuth2Client;
+
+// Cargar las credenciales de la API de Google Calendar
 fs.readFile(CREDENTIALS_PATH, (err, content) => {
   if (err) {
     console.error('Error al cargar credentials.json:', err);
@@ -50,6 +53,7 @@ fs.readFile(CREDENTIALS_PATH, (err, content) => {
   oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 });
 
+// Función para autorizar al usuario con Google Calendar
 async function authorize() {
   const content = await fsp.readFile(CREDENTIALS_PATH);
   const credentials = JSON.parse(content);
@@ -65,6 +69,7 @@ async function authorize() {
   }
 }
 
+// Función para obtener eventos del calendario de Google
 async function listEvents(auth) {
   const calendar = google.calendar({ version: 'v3', auth });
   const res = await calendar.events.list({
@@ -122,12 +127,15 @@ app.get('/galeria', (req, res) => {
 app.get('/blog/entradas', (req, res) => {
   const page = parseInt(req.query.page) || 1; // Página solicitada
   const limit = parseInt(req.query.limit) || 10; // Número de entradas por página
+
+  // Leer el archivo JSON
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       return res.status(500).send('Error al leer el archivo JSON');
     }
 
+    // Si el archivo no está vacío, parsear el JSON
     let entries = [];
     if (data.trim() !== '') {
       try {
@@ -138,7 +146,7 @@ app.get('/blog/entradas', (req, res) => {
       }
     }
 
-    // Paginación
+    // Manejar paginación
     const start = (page - 1) * limit;
     const paginatedEntries = entries.slice(start, start + limit);
     res.json(paginatedEntries);
@@ -153,7 +161,7 @@ app.post('/blog/entradas', (req, res) => {
   // Generar un ID único y aleatorio
   newEntry.id = Math.floor(Math.random() * 1000000000);
 
-
+  // Leer el archivo JSON y agregar la nueva entrada
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
@@ -189,6 +197,8 @@ app.post('/blog/entradas', (req, res) => {
 // Ruta para eliminar una entrada del archivo JSON
 app.delete('/blog/entradas/:id', (req, res) => {
   const entryId = req.params.id;
+
+  // Leer el archivo JSON 
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
@@ -196,6 +206,8 @@ app.delete('/blog/entradas/:id', (req, res) => {
     }
     let entries = JSON.parse(data);
     entries = entries.filter(entry => entry.id !== parseInt(entryId));
+
+    // Escribir el archivo JSON actualizado
     fs.writeFile(path.join(__dirname, 'blog.json'), JSON.stringify(entries, null, 2), (err) => {
       if (err) {
         console.error(err);
@@ -210,6 +222,8 @@ app.delete('/blog/entradas/:id', (req, res) => {
 // Ruta para obtener una entrada específica por su ID
 app.get('/blog/entradas/:id', (req, res) => {
   const entryId = req.params.id;
+
+  // Leer el archivo JSON para encontrar la entrada por ID
   fs.readFile(path.join(__dirname, 'blog.json'), 'utf8', (err, data) => {
     if (err) {
       console.error('Error al leer el archivo', err);
@@ -283,7 +297,7 @@ app.get('/auth', (req, res) => {
   res.redirect(authUrl);
 });
 
-
+// Ruta de callback para manejar la respuesta de Google después de la autenticación
 app.get('/auth/callback', async (req, res) => {
   const code = req.query.code;
   try {
@@ -323,6 +337,7 @@ app.post('/calendar/create-event', async (req, res) => {
       return res.status(400).json({ message: 'Faltan datos: title, date, description, startTime o endTime' });
     }
 
+    // Crear el evento con los datos obtenidos
     const event = {
       summary: title,
       description: description || '',
@@ -336,6 +351,7 @@ app.post('/calendar/create-event', async (req, res) => {
       },
     };
 
+    // Insertar el evento en el calendario
     await calendar.events.insert({
       calendarId: 'primary',
       resource: event,
@@ -354,6 +370,7 @@ app.delete('/calendar/delete-event/:id', async (req, res) => {
     const auth = await authorize();
     const calendar = google.calendar({ version: 'v3', auth });
 
+    // Eliminar el evento
     await calendar.events.delete({
       calendarId: 'primary',
       eventId: req.params.id

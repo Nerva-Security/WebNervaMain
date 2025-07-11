@@ -1,4 +1,6 @@
 /* ==================== MAIN ====================*/
+
+/* Estilos generales */
 main {
     display: grid;
     grid-template-columns: 1fr;
@@ -23,6 +25,7 @@ main {
 
 /* ==================== SELECCIÓN ENTRADAS Y FILTRO PALABRAS ====================*/
 
+/* Contenedor de filtros */
 .blog-filter {
     display: flex;
     flex-wrap: wrap;
@@ -31,6 +34,7 @@ main {
     justify-content: flex-end;
 }
 
+/* Input filtro por palabra */
 .blog-search input {
     padding: 6px 10px;
     font-size: 1rem;
@@ -50,6 +54,7 @@ main {
     background-color: #f9f9f9;
 }
 
+/* Filtro por páginas */
 .blog-entry-pages {
     display: flex;
     align-items: center;
@@ -84,6 +89,7 @@ main {
     background-color: #f9f9f9;
 }
 
+/* Botón de búsqueda */
 .blog-search button {
     padding: 6px 12px;
     font-size: 1rem;
@@ -103,11 +109,13 @@ main {
 
 /* ==================== BLOQUE AÑADIR ENTRADAS ====================*/
 
+/* Contenedor de "Añadir entrada" */
 .blog-edit {
     grid-column: 1 / -1;
     padding: 0px;
 }
 
+/* Botón de "Añadir entrada" */
 .add-entry {
     width: 100%;
     border-radius: 10px;
@@ -122,6 +130,7 @@ main {
     }
 }
 
+/* Formulario de "Añadir entrada" */
 .blog-form {
     padding: 20px;
     margin: 20px 0;
@@ -130,6 +139,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Elementos del formulario */
 .blog-form input {
     width: 50%;
     padding: 10px;
@@ -149,6 +159,7 @@ main {
     margin: 10px 0;
 }
 
+/* Botón de publicar */
 .blog-form button {
     width: 20%;
     padding: 13px;
@@ -164,6 +175,7 @@ main {
     }
 }
 
+/* Vista previa de imagen en miniatura en el formulario */
 .img-preview {
     width: 150px;
     height: auto;
@@ -173,10 +185,12 @@ main {
 
 /* ==================== BLOQUE CONTENEDOR ====================*/
 
+/* Contenedor de las entradas */
 .blog-card {
     grid-column: 1 / -1;
 }
 
+/* Estilos para las entradas del blog */
 .blog-entry {
     margin-bottom: 30px;
     padding: 20px;
@@ -188,12 +202,14 @@ main {
     gap: 20px;
 }
 
+/* Imagen de la entrada */
 .entry-img {
     max-width: 400px;
     height: auto;
     border-radius: 10px;
 }
 
+/* Contenido de la entrada */
 .entry-content {
     margin: 0 12px 0 8px;
 }
@@ -212,6 +228,7 @@ main {
     text-align: justify;
 }
 
+/* Botones de la entrada */
 .blog-entry button {
     margin: 10px 10px 0 0;
     padding: 8px 12px;
@@ -222,6 +239,7 @@ main {
     transition: background-color 0.2s ease;
 }
 
+/* Boton de editar*/
 .edit-entry {
     background-color: #ffc107;
     color: #000;
@@ -231,6 +249,7 @@ main {
     }
 }
 
+/* Botón de eliminar */
 .delete-entry {
     background-color: #dc3545;
     color: #fff;
@@ -241,6 +260,7 @@ main {
 }
 
 /* ==================== BOTÓN CARGAR MÁS ====================*/
+
 .blog-load-more {
     grid-column: 1 / -1;
     display: flex;
